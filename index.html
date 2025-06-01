@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Portfolio</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0e0f13;
+      color: #eee;
+      overflow-x: hidden;
+      height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #12141c;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav {
+      width: 100%;
+      max-width: 750px;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      position: relative;
+      font-size: 1.1rem;
+      padding: 1.5rem 0;
+      color: #aaa;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li.active,
+    nav ul li:hover {
+      color: #0465d3;
+    }
+
+    nav ul li::after {
+      content: '';
+      position: absolute;
+      bottom: 0.3rem;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #0465d3;
+      transform-origin: center;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      border-radius: 2px;
+    }
+
+    nav ul li.active::after,
+    nav ul li:hover::after {
+      transform: scaleX(1);
+    }
+
+    main {
+      margin-top: 60px;
+      width: 100vw;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 500vw;
+    }
+
+    section {
+      width: 100vw;
+      height: 100%;
+      padding: 3rem 2rem;
+      flex-shrink: 0;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    /* Scrollbar for sections */
+    section::-webkit-scrollbar {
+      width: 8px;
+    }
+    section::-webkit-scrollbar-track {
+      background: #1d1f27;
+    }
+    section::-webkit-scrollbar-thumb {
+      background: #0465d3;
+      border-radius: 4px;
+    }
+
+    /* Home Section */
+    #home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #141519 0%, #1e2028 100%);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #home img.profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #0465d3;
+      object-fit: cover;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 20px #045c9f88;
+      animation: popIn 0.8s ease forwards;
+    }
+
+    #home h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0465d3;
+      letter-spacing: 0.05em;
+    }
+
+    #home p {
+      max-width: 350px;
+      font-weight: 300;
+      line-height: 1.5;
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    /* Education Section */
+    #education {
+      background: #191b23;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #education h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0465d3;
+      border-bottom: 2px solid #0465d3;
+      display: inline-block;
+      padding-bottom: 0.2rem;
+    }
+
+    .edu-item {
+      margin-bottom: 1.4rem;
+      border-left: 3px solid #0465d3;
+      padding-left: 1rem;
+      animation: slideUp 0.5s ease forwards;
+    }
+
+    .edu-item h3 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: #eee;
+    }
+
+    .edu-item span {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .edu-item p {
+      margin: 0.3rem 0 0;
+      font-weight: 300;
+      font-size: 1rem;
+      color: #bbb;
+    }
+
+    /* Skills Section */
+    #skills {
+      background: #22242b;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #skills h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0465d3;
+      border-bottom: 2px solid #0465d3;
+      display: inline-block;
+      padding-bottom: 0.2rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .skill {
+      background: #333640;
+      padding: 0.7rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #0465d3;
+      box-shadow: 0 0 10px #045c9f88;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+
+    .skill:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #045c9f88;
+    }
+
+    /* Certificate Section */
+    #certificate {
+      background: #1e2130;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #certificate h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0465d3;
+      border-bottom: 2px solid #0465d3;
+      display: inline-block;
+      padding-bottom: 0.2rem;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .cert-grid img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 15px #045c9f88;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      filter: grayscale(40%);
+    }
+
+    .cert-grid img:hover {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+      box-shadow: 0 0 25px #045c9f88;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: #161824;
+      animation: fadeIn 1s ease forwards;
+      overflow-y: auto;
+    }
+
+    #contact h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0465d3;
+      border-bottom: 2px solid #0465d3;
+      display: inline-block;
+      padding-bottom: 0.2rem;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      margin-top: 1.5rem;
+      max-width: 400px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.1rem;
+      color: #ccc;
+      user-select: text;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item:hover {
+      color: #0465d3;
+    }
+
+    .contact-item svg {
+      width: 24px;
+      height: 24px;
+      fill: #0465d3;
+      flex-shrink: 0;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes slideUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+        <ul id="navbar" class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
+            <li data-index="0" class="nav-item" role="presentation">
+              <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Home</button>
+            </li>
+            <li data-index="1" class="nav-item" role="presentation">
+              <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Education</button>
+            </li>
+            <li data-index="2" class="nav-item" role="presentation">
+              <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Skills</button>
+            </li>
+            <li data-index="3" class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Certificate</button>
+            </li>
+            <li data-index="4" class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">Contact</button>
+            </li>
+          </ul>
+    </nav>
+  </header>
+  <main id="main-container">
+    <section id="home">
+      <img src="profile.png" alt="Profile Photo" class="profile-photo" />
+      <h1>Hello, I'm Nisrina Nur Aini</h1>
+      <p>Welcome to my portfolio website. I'm student of SMKN 1 Nglegok majoring Computer Network and Engineering. Here you can find my education background, skills, certificates, and contact info. Feel free to explore!</p>
+    </section>
+    <section id="education">
+      <h2>Education</h2>
+      <div class="edu-item">
+        <h3>MTs Ma'arif NU Kota Blitar</h3>
+        <span>2020 to 2023</span>
+      </div>
+      <div class="edu-item">
+        <h3>SMK Negeri 1 Nglegok</h3>
+        <span>2023 to 2026</span>
+        <p>Computer Network and Engineering.</p>
+      </div>
+    </section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-group">
+            <h3>Mikrotik</h3>
+            <ul>
+                <li>Network Fundamental, Ntwork Management, Wireless, Tunnel, Routing (static and dinamic), Firewall, Hostpot, Fail Over, Load Balance, OSPF, Cabling</li>
+            </ul>
+        </div>
+        <div class="skills-group">
+            <h3>Linux Debian</h3>
+            <ul>
+                <li>Linux Fundamental, DNS Server, DHCP Server, FTP Server, Mail Server, Database, Wordpress, Management Network & Access, RedHat</li>
+            </ul>
+        </div>
+        <div class="skills-group">
+            <h3>Website Programming</h3>
+            <ul>
+                <li>HTML, CSS, JavaScript and Deploy Website</li>
+            </ul>
+        </div>
+      </section>
+    <section id="certificate">
+      <h2>Certificates</h2>
+      <div class="cert-grid">
+        <img src="linux.png" alt="Certificate 1" />
+        <img src="network.png" alt="Certificate 2" />
+        <img src="pyhton.png" alt="Certificate 3" />
+        <img src="frtnt3.png" alt="Certificate 4" />
+        <img src="frtnt2.png" alt="Certificate 5" />
+        <img src="frtnt.png" alt="Certificate 6" />
+      </div>
+    </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-list">
+        <a href="https://instagram.com/nisrnaa.nur" target="_blank" class="contact-item" title="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.75 2C4.45 2 2 4.45 2 7.75v8.5C2 19.55 4.45 22 7.75 22h8.5c3.3 0 5.75-2.45 5.75-5.75v-8.5C22 4.45 19.55 2 16.25 2h-8.5zM20 10.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM12 7a5 5 0 110 10 5 5 0 010-10z"/></svg>
+          @nisrnaa.nur
+        </a>
+        <a href="tel:+62 857-3506-3765" class="contact-item" title="Phone Number">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79a15.09 15.09 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.59 11.59 0 003.64.58 1 1 0 011 1V20a1 1 0 01-1 1A16 16 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.59 11.59 0 00.58 3.64 1 1 0 01-.46 1.15z"/></svg>
+          +62 857-3506-3765
+        </a>
+        <div class="contact-item" title="Address">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+          Jl.Abadi Kemloko Village RT 01/RW 02, Nglegok, Blitar
+        </div>
+        <a href="mailto:nurnisrina570@gmail.com" class="contact-item" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2v.01L12 13 4 6.01V6h16z"/></svg>
+          nurnisrina570@gmail.com
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      const navbar = document.getElementById('navbar');
+      const mainContainer = document.getElementById('main-container');
+      const navItems = navbar.querySelectorAll('li');
+      const totalSections = navItems.length;
+
+      // Initialize main container width
+      mainContainer.style.width = (totalSections * 100) + 'vw';
+
+      // Store current index
+      let currentIndex = 0;
+
+      function setActiveNav(index) {
+        if(index < 0 || index >= totalSections) return;
+        navItems.forEach(nav => nav.classList.remove('active'));
+        navItems[index].classList.add('active');
+        mainContainer.style.transform = `translateX(-${index * 100}vw)`;
+        currentIndex = index;
+      }
+
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const index = parseInt(item.getAttribute('data-index'));
+          setActiveNav(index);
+        });
+      });
+
+      // Keyboard navigation support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          setActiveNav((currentIndex + 1) % totalSections);
+        } else if (e.key === 'ArrowLeft') {
+          setActiveNav((currentIndex - 1 + totalSections) % totalSections);
+        }
+      });
+
+      // Set transition style
+      mainContainer.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    })();
+  </script>
+</body>
+</html>
+
